@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserEntity } from '../../entities/user.entity';
 
 @Module({
     imports: [
@@ -18,7 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
                     database: configService.get('POSTGRES_DB'),
                     synchronize: true,
                     logging: configService.get('POSTGRES_LOG') === 'true',
-                    entities: [],
+                    entities: [UserEntity],
                     migrations: ['src/migrations/*.{ts}'],
                     cli: {
                         entitiesDir: 'src/entities',
