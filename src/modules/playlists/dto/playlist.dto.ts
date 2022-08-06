@@ -12,6 +12,6 @@ export class PlaylistDto {
     description: string;
 
     @IsOptional({ groups: ['update'] })
-    @IsInt({ groups: ['create', 'update'] })
+    @IsInt({ groups: ['create', 'update', 'list'] })
     user_id: number;
 }
