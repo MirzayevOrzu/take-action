@@ -33,4 +33,26 @@ export class PlaylistsService {
 
         return playlist;
     }
+
+    async list(query): Promise<PlaylistI[]> {
+        const queryDto = new PlaylistDto();
+
+        queryDto.user_id = query.user_id;
+
+        const errors = await validate(query, { groups: ['list'] });
+
+        if (errors.length) {
+            throw new BadRequestException(
+                errors.reduce((prev, curr) => {
+                    return [...prev, ...Object.values(curr.constraints)];
+                }, []),
+            );
+        }
+
+        const playlists = await this.playlistRepository.find({
+            where: queryDto,
+        });
+
+        return playlists;
+    }
 }
