@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    ParseIntPipe,
+    Post,
+    Req,
+    UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PlaylistsService } from './playlists.service';
 
@@ -19,5 +28,11 @@ export class PlaylistsController {
     @Get()
     list(@Req() req: any) {
         return this.playlistsService.list({ user_id: req.user.id });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    show(@Req() req: any, @Param('id', ParseIntPipe) id: number) {
+        return this.playlistsService.show({ id, user_id: req.user.id });
     }
 }
