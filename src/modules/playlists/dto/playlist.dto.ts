@@ -14,7 +14,6 @@ export class PlaylistDto {
     @MaxLength(250, { groups: ['create', 'update'] })
     description: string;
 
-    @IsOptional({ groups: ['update'] })
-    @IsInt({ groups: ['create', 'update', 'list', 'show'] })
+    @IsInt({ groups: ['create', 'list', 'show'] })
     user_id: number;
 }
