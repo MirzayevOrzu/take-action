@@ -33,4 +33,8 @@ export class UsersService {
 
         return user;
     }
+
+    findOne(query: UserI): Promise<UserI> {
+        return this.userRepository.findOne({ where: query });
+    }
 }
