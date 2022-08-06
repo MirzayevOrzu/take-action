@@ -86,4 +86,39 @@ export class PlaylistsService {
 
         return playlist;
     }
+
+    async update(query, payload) {
+        let playlist = await this.show(query);
+        const payloadDto = new PlaylistDto();
+
+        for (const i in payload) {
+            // works with first layer properties only
+            payloadDto[i] = payload[i];
+        }
+
+        const errors = await validate(payloadDto, {
+            groups: ['update'],
+            whitelist: true,
+        });
+
+        if (!Object.keys(payloadDto).length)
+            throw new BadRequestException('Nothing sent to update');
+
+        if (errors.length) {
+            throw new BadRequestException(
+                errors.reduce((prev, curr) => {
+                    return [...prev, ...Object.values(curr.constraints)];
+                }, []),
+            );
+        }
+
+        for (const i in payloadDto) {
+            // works with first layer properties only
+            playlist[i] = payloadDto[i];
+        }
+
+        playlist = await this.playlistRepository.save(playlist);
+
+        return playlist;
+    }
 }
