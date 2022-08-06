@@ -4,6 +4,7 @@ import {
     Get,
     Param,
     ParseIntPipe,
+    Patch,
     Post,
     Req,
     UseGuards,
@@ -34,5 +35,18 @@ export class PlaylistsController {
     @Get(':id')
     show(@Req() req: any, @Param('id', ParseIntPipe) id: number) {
         return this.playlistsService.show({ id, user_id: req.user.id });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch(':id')
+    update(
+        @Req() req: any,
+        @Param('id', ParseIntPipe) id: number,
+        @Body() payload,
+    ) {
+        return this.playlistsService.update(
+            { id, user_id: req.user.id },
+            payload,
+        );
     }
 }
