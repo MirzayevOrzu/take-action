@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserEntity } from '../../entities/user.entity';
+import { PlaylistEntity } from '../../entities/playlist.entity';
 
 @Module({
     imports: [
@@ -19,7 +20,7 @@ import { UserEntity } from '../../entities/user.entity';
                     database: configService.get('POSTGRES_DB'),
                     synchronize: true,
                     logging: configService.get('POSTGRES_LOG') === 'true',
-                    entities: [UserEntity],
+                    entities: [UserEntity, PlaylistEntity],
                     migrations: ['src/migrations/*.{ts}'],
                     cli: {
                         entitiesDir: 'src/entities',
