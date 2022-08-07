@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     ParseIntPipe,
@@ -48,5 +49,11 @@ export class PlaylistsController {
             { id, user_id: req.user.id },
             payload,
         );
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete(':id')
+    delete(@Req() req: any, @Param('id', ParseIntPipe) id: number) {
+        return this.playlistsService.delete({ id, user_id: req.user.id });
     }
 }

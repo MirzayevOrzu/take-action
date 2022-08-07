@@ -121,4 +121,10 @@ export class PlaylistsService {
 
         return playlist;
     }
+
+    async delete(query) {
+        const playlist = await this.show(query);
+
+        return await this.playlistRepository.remove(playlist);
+    }
 }
