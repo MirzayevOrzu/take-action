@@ -8,5 +8,6 @@ import { PlaylistEntity } from '../../entities/playlist.entity';
     imports: [TypeOrmModule.forFeature([PlaylistEntity])],
     controllers: [PlaylistsController],
     providers: [PlaylistsService],
+    exports: [PlaylistsService],
 })
 export class PlaylistsModule {}
