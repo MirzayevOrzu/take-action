@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
 import { PlaylistI } from './playlist.entity';
-import { UserI } from './user.entity';
+import { UserI } from './user.ent
 
 export enum ActionStatus {
     TODO = 'todo',
