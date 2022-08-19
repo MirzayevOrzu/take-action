@@ -2,7 +2,9 @@ import {
     Body,
     Controller,
     Get,
+    Param,
     ParseIntPipe,
+    Patch,
     Post,
     Query,
     Req,
@@ -25,5 +27,18 @@ export class ActionsController {
     @Get()
     list(@Req() req: any, @Query('playlist_id', ParseIntPipe) playlist_id) {
         return this.actionsService.list({ playlist_id, user_id: req.user.id });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch(':id')
+    update(
+        @Req() req: any,
+        @Param('id', ParseIntPipe) id: number,
+        @Body() payload,
+    ) {
+        return this.actionsService.update(
+            { id, user_id: req.user.id },
+            payload,
+        );
     }
 }

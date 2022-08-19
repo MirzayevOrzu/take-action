@@ -1,17 +1,33 @@
-import { IsInt, IsString, MaxLength } from 'class-validator';
+import {
+    IsEnum,
+    IsInt,
+    IsOptional,
+    IsString,
+    MaxLength,
+} from 'class-validator';
+import { ActionStatus } from 'src/entities/actions.entity';
 
 export class ActionDto {
-    @IsString({ groups: ['create'] })
-    @MaxLength(100, { groups: ['create'] })
+    @IsInt({ groups: ['show'] })
+    id: number;
+
+    @IsOptional({ groups: ['update'] })
+    @IsString({ groups: ['create', 'update'] })
+    @MaxLength(100, { groups: ['create', 'update'] })
     name: string;
 
-    @IsString({ groups: ['create'] })
-    @MaxLength(250, { groups: ['create'] })
+    @IsOptional({ groups: ['update'] })
+    @IsString({ groups: ['create', 'update'] })
+    @MaxLength(250, { groups: ['create', 'update'] })
     link: string;
 
-    @IsInt({ groups: ['list'] })
+    @IsInt({ groups: ['list', 'show'] })
     playlist_id: number;
 
-    @IsInt({ groups: ['list'] })
+    @IsInt({ groups: ['list', 'show'] })
     user_id: number;
+
+    @IsOptional({ groups: ['update'] })
+    @IsEnum(ActionStatus, { groups: ['update'] })
+    status: ActionStatus;
 }
