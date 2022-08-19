@@ -1,4 +1,6 @@
 import { EntitySchema } from 'typeorm';
+import { PlaylistI } from './playlist.entity';
+import { UserI } from './user.entity';
 
 export enum ActionStatus {
     TODO = 'todo',
@@ -12,8 +14,8 @@ export interface ActionI {
     link: string;
     order: number;
     status: ActionStatus;
-    playlist_id: number;
-    user_id: number;
+    playlist_id: number | PlaylistI;
+    user_id: number | UserI;
     created_at: Date;
 }
 
@@ -50,10 +52,18 @@ export const ActionEntity = new EntitySchema<ActionI>({
         playlist_id: {
             type: 'many-to-one',
             target: 'playlists',
+            joinColumn: {
+                name: 'playlist_id',
+            },
+            joinTable: false,
         },
         user_id: {
             type: 'many-to-one',
             target: 'users',
+            joinColumn: {
+                name: 'user_id',
+            },
+            joinTable: false,
         },
     },
 });

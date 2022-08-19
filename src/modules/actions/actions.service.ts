@@ -6,6 +6,7 @@ import { computeValidationErrors } from 'src/common/utils/compute-validation-err
 import { ActionEntity, ActionI } from 'src/entities/actions.entity';
 import { Repository } from 'typeorm';
 import { PlaylistsService } from '../playlists/playlists.service';
+import { ActionDto } from './dto/action.dto';
 import { ManyActionsDto } from './dto/many-actions.dto';
 
 @Injectable()
@@ -43,5 +44,31 @@ export class ActionsService {
                 user_id: user.id,
             })),
         );
+    }
+
+    async list(query) {
+        const queryDto = new ActionDto();
+
+        queryDto.user_id = query.user_id;
+        queryDto.playlist_id = query.playlist_id;
+
+        const errors = await validate(queryDto, { groups: ['list'] });
+
+        if (errors.length) {
+            throw new BadRequestException(computeValidationErrors(errors));
+        }
+
+        const actions = await this.actionRepository.find({
+            where: {
+                playlist_id: {
+                    id: queryDto.playlist_id,
+                },
+                user_id: {
+                    id: queryDto.user_id,
+                },
+            },
+        });
+
+        return actions;
     }
 }
