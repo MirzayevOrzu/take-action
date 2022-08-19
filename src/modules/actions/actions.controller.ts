@@ -23,7 +23,7 @@ export class ActionsController {
 
     @UseGuards(JwtAuthGuard)
     @Get()
-    list(@Req() req, @Query('playlist_id', ParseIntPipe) playlist_id) {
+    list(@Req() req: any, @Query('playlist_id', ParseIntPipe) playlist_id) {
         return this.actionsService.list({ playlist_id, user_id: req.user.id });
     }
 }
