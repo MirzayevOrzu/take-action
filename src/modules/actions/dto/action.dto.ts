@@ -1,4 +1,3 @@
-import { PickType } from '@nestjs/mapped-types';
 import { IsInt, IsString, MaxLength } from 'class-validator';
 
 export class ActionDto {

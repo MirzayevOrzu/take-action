@@ -28,6 +28,10 @@ export const PlaylistEntity = new EntitySchema<PlaylistI>({
         user_id: {
             type: 'many-to-one',
             target: 'users',
+            joinColumn: {
+                name: 'user_id',
+                referencedColumnName: 'id'
+            }
         },
     },
 });
