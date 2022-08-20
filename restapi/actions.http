@@ -1,0 +1,39 @@
+###
+PATCH http://localhost:3000/actions/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwOTI4MjM2LCJleHAiOjE2NjA5MzU0MzZ9.9Qv-mk4ruSO7qBYlpuBvgrMAo5ZE_MhAsMW-dHlvqJQ
+
+{
+    "status": "done"
+}
+
+###
+GET http://localhost:3000/actions?playlist_id=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwOTI4MjM2LCJleHAiOjE2NjA5MzU0MzZ9.9Qv-mk4ruSO7qBYlpuBvgrMAo5ZE_MhAsMW-dHlvqJQ
+
+###
+POST http://localhost:3000/actions/many
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwOTI4MjM2LCJleHAiOjE2NjA5MzU0MzZ9.9Qv-mk4ruSO7qBYlpuBvgrMAo5ZE_MhAsMW-dHlvqJQ
+
+{
+    "playlist_id": 1,
+    "actions": [
+        {
+            "name": "1-dars",
+            "link": "http://muslim.uz/t/1"
+        },
+        {
+            "name": "2-dars",
+            "link": "http://muslim.uz/t/2"
+        },
+        {
+            "name": "3-dars",
+            "link": "http://muslim.uz/t/3"
+        },
+        {
+            "name": "4-dars",
+            "link": "http://muslim.uz/t/4"
+        }
+    ]
+}

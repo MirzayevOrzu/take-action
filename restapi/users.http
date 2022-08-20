@@ -1,0 +1,23 @@
+### LOGIN
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "oybek@gmail.com",
+    "password": "123456"
+}
+
+### GET PROFILE
+GET http://localhost:3000/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwNjcwOTE5LCJleHAiOjE2NjA2NzgxMTl9.8CAXRoax-Ho3oVVGlrCZs0He33h8mOZ33q9bCMBf1Z0
+
+### REGISTER
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "first_name": "Oybek",
+    "last_name": "Akmalov",
+    "email": "oybek@gmail.com",
+    "password": "123456"
+}

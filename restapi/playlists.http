@@ -1,0 +1,17 @@
+###
+GET http://localhost:3000/playlists/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwOTI4MjM2LCJleHAiOjE2NjA5MzU0MzZ9.9Qv-mk4ruSO7qBYlpuBvgrMAo5ZE_MhAsMW-dHlvqJQ
+
+###
+GET http://localhost:3000/playlists
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwOTI4MjM2LCJleHAiOjE2NjA5MzU0MzZ9.9Qv-mk4ruSO7qBYlpuBvgrMAo5ZE_MhAsMW-dHlvqJQ
+
+###
+POST http://localhost:3000/playlists
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6Ik95YmVrIiwibGFzdF9uYW1lIjoiQWttYWxvdiIsImVtYWlsIjoib3liZWtAZ21haWwuY29tIiwiaWF0IjoxNjYwOTI4MjM2LCJleHAiOjE2NjA5MzU0MzZ9.9Qv-mk4ruSO7qBYlpuBvgrMAo5ZE_MhAsMW-dHlvqJQ
+
+{
+    "title": "Tajwid",
+    "description": "Learn tajwid"
+}
