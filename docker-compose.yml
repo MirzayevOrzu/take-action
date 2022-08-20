@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  postgres:
+    env_file: .env
+    container_name: postgres_container
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+    restart: unless-stopped
+networks:
+  postgres:
+    driver: bridge
+volumes:
+  postgres:
