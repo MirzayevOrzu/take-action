@@ -1,0 +1,14 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""playlists"""
+type Playlist {
+  id: ID!
+  title: String!
+  description: String!
+}
+
+type Query {
+  playlists: [Playlist!]!
+}
