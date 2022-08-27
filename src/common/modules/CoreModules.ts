@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UserEntity } from '../../entities/user.entity';
 import { PlaylistEntity } from '../../entities/playlist.entity';
 import { ActionEntity } from '../../entities/actions.entity';
@@ -29,6 +31,11 @@ import { ActionEntity } from '../../entities/actions.entity';
                     },
                 } as TypeOrmModuleOptions),
             inject: [ConfigService],
+        }),
+        GraphQLModule.forRoot<ApolloDriverConfig>({
+            driver: ApolloDriver,
+            autoSchemaFile: 'schema.gql',
+            installSubscriptionHandlers: true,
         }),
     ],
 })

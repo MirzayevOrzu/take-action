@@ -8,6 +8,7 @@ import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
 import { PlaylistEntity, PlaylistI } from '../../entities/playlist.entity';
 import { PlaylistDto } from './dto/playlist.dto';
+import { Playlist } from './models/playlist.model';
 
 @Injectable()
 export class PlaylistsService {
@@ -38,7 +39,7 @@ export class PlaylistsService {
         return playlist;
     }
 
-    async list(query): Promise<PlaylistI[]> {
+    async list(query): Promise<Playlist[]> {
         const queryDto = new PlaylistDto();
 
         queryDto.user_id = query.user_id;
