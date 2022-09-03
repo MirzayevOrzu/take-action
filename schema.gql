@@ -11,4 +11,21 @@ type Playlist {
 
 type Query {
   playlists: [Playlist!]!
+  playlist(id: Float!): Playlist!
+}
+
+type Mutation {
+  addPlaylist(newPlaylistInput: NewPlaylistInput!): Playlist!
+  updatePlaylist(updatePlaylistInput: UpdatePlaylistInput!, id: Float!): Playlist!
+  deletePlaylist(id: Float!): Playlist!
+}
+
+input NewPlaylistInput {
+  title: String!
+  description: String!
+}
+
+input UpdatePlaylistInput {
+  title: String
+  description: String
 }
