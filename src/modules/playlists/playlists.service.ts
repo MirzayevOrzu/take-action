@@ -44,7 +44,7 @@ export class PlaylistsService {
 
         queryDto.user_id = query.user_id;
 
-        const errors = await validate(query, { groups: ['list'] });
+        const errors = await validate(queryDto, { groups: ['list'] });
 
         if (errors.length) {
             throw new BadRequestException(
