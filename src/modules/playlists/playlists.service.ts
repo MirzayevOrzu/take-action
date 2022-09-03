@@ -126,6 +126,6 @@ export class PlaylistsService {
     async delete(query) {
         const playlist = await this.show(query);
 
-        return await this.playlistRepository.remove(playlist);
+        return this.playlistRepository.remove(playlist);
     }
 }
