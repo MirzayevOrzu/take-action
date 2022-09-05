@@ -1,4 +1,4 @@
-import { UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'src/common/decorators/current-user';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
@@ -30,7 +30,6 @@ export class PlaylistsResolver {
         return this.playlistsService.show({ id, user_id: user.id });
     }
 
-    @UsePipes(new ValidationPipe({ groups: ['list'] }))
     @UseGuards(GqlAuthGuard)
     @Mutation(() => Playlist)
     addPlaylist(
