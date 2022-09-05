@@ -1,5 +1,6 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
 import { CurrentUser } from 'src/common/decorators/current-user';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { NewPlaylistInput } from './dto/new-playlist.input';
@@ -7,6 +8,8 @@ import { PlaylistsArgs } from './dto/playlists.args';
 import { UpdatePlaylistInput } from './dto/update-playlist.input';
 import { Playlist } from './models/playlist.model';
 import { PlaylistsService } from './playlists.service';
+
+const pubSub = new PubSub();
 
 @Resolver((of) => Playlist)
 export class PlaylistsResolver {
@@ -32,14 +35,18 @@ export class PlaylistsResolver {
 
     @UseGuards(GqlAuthGuard)
     @Mutation(() => Playlist)
-    addPlaylist(
+    async addPlaylist(
         @Args('newPlaylistInput') newPlaylistInput: NewPlaylistInput,
         @CurrentUser() user,
     ) {
-        return this.playlistsService.create({
+        const playlist = await this.playlistsService.create({
             ...newPlaylistInput,
             user_id: user.id,
         });
+
+        pubSub.publish('playlistAdded', { playlistAdded: playlist });
+
+        return playlist;
     }
 
     @UseGuards(GqlAuthGuard)
@@ -59,5 +66,10 @@ export class PlaylistsResolver {
     @Mutation(() => Playlist)
     deletePlaylist(@Args('id') id: number, @CurrentUser() user) {
         return this.playlistsService.delete({ id, user_id: user.id });
+    }
+
+    @Subscription(() => Playlist)
+    playlistAdded() {
+        return pubSub.asyncIterator('playlistAdded');
     }
 }

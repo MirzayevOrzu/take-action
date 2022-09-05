@@ -6,6 +6,12 @@ import { PlaylistsModule } from './modules/playlists/playlists.module';
 import { ActionsModule } from './modules/actions/actions.module';
 
 @Module({
-    imports: [CoreModules, UsersModule, AuthModule, PlaylistsModule, ActionsModule],
+    imports: [
+        CoreModules,
+        UsersModule,
+        AuthModule,
+        PlaylistsModule,
+        ActionsModule,
+    ],
 })
 export class AppModule {}
