@@ -10,4 +10,7 @@ export class Playlist {
 
     @Field()
     description: string;
+
+    @Field(() => ID)
+    user_id: number;
 }
