@@ -23,6 +23,9 @@ export const PlaylistEntity = new EntitySchema<PlaylistI>({
             type: 'varchar',
             length: 250,
         },
+        user_id: {
+            type: 'integer',
+        },
     },
     relations: {
         user_id: {
@@ -30,8 +33,8 @@ export const PlaylistEntity = new EntitySchema<PlaylistI>({
             target: 'users',
             joinColumn: {
                 name: 'user_id',
-                referencedColumnName: 'id'
-            }
+                referencedColumnName: 'id',
+            },
         },
     },
 });
