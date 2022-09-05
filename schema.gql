@@ -30,3 +30,7 @@ input UpdatePlaylistInput {
   title: String
   description: String
 }
+
+type Subscription {
+  playlistAdded: Playlist!
+}
