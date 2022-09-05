@@ -68,6 +68,7 @@ export class PlaylistsResolver {
         return this.playlistsService.delete({ id, user_id: user.id });
     }
 
+    // cannot use guard for subscription
     @Subscription(() => Playlist)
     playlistAdded() {
         return pubSub.asyncIterator('playlistAdded');
