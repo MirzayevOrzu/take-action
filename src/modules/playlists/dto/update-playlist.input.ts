@@ -1,15 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, IsString } from 'class-validator';
+import { InputType, PartialType } from '@nestjs/graphql';
+import { NewPlaylistInput } from './new-playlist.input';
 
 @InputType()
-export class UpdatePlaylistInput {
-    @Field({ nullable: true })
-    @IsOptional()
-    @IsString()
-    title?: string;
-
-    @Field({ nullable: true })
-    @IsOptional()
-    @IsString()
-    description?: string;
-}
+export class UpdatePlaylistInput extends PartialType(NewPlaylistInput) {}
