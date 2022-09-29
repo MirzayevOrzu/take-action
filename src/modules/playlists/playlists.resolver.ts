@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { CurrentUser } from 'src/common/decorators/current-user';
@@ -9,11 +9,12 @@ import { UpdatePlaylistInput } from './dto/update-playlist.input';
 import { Playlist } from './models/playlist.model';
 import { PlaylistsService } from './playlists.service';
 
-const pubSub = new PubSub();
-
 @Resolver((of) => Playlist)
 export class PlaylistsResolver {
-    constructor(private readonly playlistsService: PlaylistsService) {}
+    constructor(
+        private readonly playlistsService: PlaylistsService,
+        @Inject('PUB_SUB') private readonly pubSub: PubSub,
+    ) {}
 
     @UseGuards(GqlAuthGuard)
     @Query(() => [Playlist])
@@ -44,7 +45,7 @@ export class PlaylistsResolver {
             user_id: user.id,
         });
 
-        pubSub.publish('playlistAdded', { playlistAdded: playlist });
+        this.pubSub.publish('playlistAdded', { playlistAdded: playlist });
 
         return playlist;
     }
@@ -71,6 +72,6 @@ export class PlaylistsResolver {
     // cannot use guard for subscription
     @Subscription(() => Playlist)
     playlistAdded() {
-        return pubSub.asyncIterator('playlistAdded');
+        return this.pubSub.asyncIterator('playlistAdded');
     }
 }
