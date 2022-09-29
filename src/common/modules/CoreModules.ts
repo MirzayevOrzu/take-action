@@ -36,6 +36,25 @@ import { ActionEntity } from '../../entities/actions.entity';
             driver: ApolloDriver,
             autoSchemaFile: 'schema.gql',
             installSubscriptionHandlers: true,
+            subscriptions: {
+                'subscriptions-transport-ws': {
+                    onConnect: (headersRaw: Record<string, unknown>) => {
+                        // Lowercase each header key
+                        const headers = Object.keys(headersRaw).reduce(
+                            (dest, key) => {
+                                dest[key.toLowerCase()] = headersRaw[key];
+                                return dest;
+                            },
+                            {},
+                        );
+                        return {
+                            req: {
+                                headers: headers,
+                            },
+                        };
+                    },
+                },
+            },
         }),
     ],
 })

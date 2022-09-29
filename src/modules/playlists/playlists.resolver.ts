@@ -69,7 +69,7 @@ export class PlaylistsResolver {
         return this.playlistsService.delete({ id, user_id: user.id });
     }
 
-    // cannot use guard for subscription
+    @UseGuards(GqlAuthGuard)
     @Subscription(() => Playlist)
     playlistAdded() {
         return this.pubSub.asyncIterator('playlistAdded');
