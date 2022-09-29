@@ -70,7 +70,11 @@ export class PlaylistsResolver {
     }
 
     @UseGuards(GqlAuthGuard)
-    @Subscription(() => Playlist)
+    @Subscription(() => Playlist, {
+        filter(payload, __, context) {
+            return payload.playlistAdded.user_id === context.req.user.id;
+        },
+    })
     playlistAdded() {
         return this.pubSub.asyncIterator('playlistAdded');
     }
