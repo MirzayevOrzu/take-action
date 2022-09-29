@@ -9,7 +9,7 @@ import { UpdatePlaylistInput } from './dto/update-playlist.input';
 import { Playlist } from './models/playlist.model';
 import { PlaylistsService } from './playlists.service';
 
-@Resolver((of) => Playlist)
+@Resolver(() => Playlist)
 export class PlaylistsResolver {
     constructor(
         private readonly playlistsService: PlaylistsService,
