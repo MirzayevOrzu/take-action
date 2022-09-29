@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     Get,
+    Inject,
     Param,
     ParseIntPipe,
     Patch,
@@ -10,20 +11,28 @@ import {
     Req,
     UseGuards,
 } from '@nestjs/common';
+import { PubSub } from 'graphql-subscriptions';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PlaylistsService } from './playlists.service';
 
 @Controller('playlists')
 export class PlaylistsController {
-    constructor(private readonly playlistsService: PlaylistsService) {}
+    constructor(
+        private readonly playlistsService: PlaylistsService,
+        @Inject('PUB_SUB') private readonly pubSub: PubSub,
+    ) {}
 
     @UseGuards(JwtAuthGuard)
     @Post()
-    create(@Req() req: any, @Body() payload) {
-        return this.playlistsService.create({
+    async create(@Req() req: any, @Body() payload) {
+        const playlist = await this.playlistsService.create({
             ...payload,
             user_id: req.user.id,
         });
+
+        this.pubSub.publish('playlistAdded', { playlistAdded: playlist });
+
+        return playlist;
     }
 
     @UseGuards(JwtAuthGuard)
