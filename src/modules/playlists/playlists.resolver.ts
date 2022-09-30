@@ -1,7 +1,17 @@
 import { Inject, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import {
+    Args,
+    Mutation,
+    Parent,
+    Query,
+    ResolveField,
+    Resolver,
+    Subscription,
+} from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { CurrentUser } from 'src/common/decorators/current-user';
+import { ActionsService } from '../actions/actions.service';
+import { Action } from '../actions/models/action.model';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { NewPlaylistInput } from './dto/new-playlist.input';
 import { PlaylistsArgs } from './dto/playlists.args';
@@ -14,6 +24,7 @@ export class PlaylistsResolver {
     constructor(
         private readonly playlistsService: PlaylistsService,
         @Inject('PUB_SUB') private readonly pubSub: PubSub,
+        private readonly actionsService: ActionsService,
     ) {}
 
     @UseGuards(GqlAuthGuard)
@@ -25,6 +36,14 @@ export class PlaylistsResolver {
         return this.playlistsService.list({
             ...playlistsArgs,
             user_id: user.id,
+        });
+    }
+
+    @ResolveField(() => [Action])
+    async actions(@Parent() playlist: Playlist) {
+        return this.actionsService.list({
+            playlist_id: playlist.id,
+            user_id: playlist.user_id,
         });
     }
 
