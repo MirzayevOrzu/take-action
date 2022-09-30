@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""users"""
+type User {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  email: String!
+}
+
 """actions"""
 type Action {
   id: ID!
@@ -35,14 +43,23 @@ type Playlist {
 }
 
 type Query {
+  me: User!
   playlists: [Playlist!]!
   playlist(id: Float!): Playlist!
 }
 
 type Mutation {
+  addUser(newUserInput: NewUserInput!): User!
   addPlaylist(newPlaylistInput: NewPlaylistInput!): Playlist!
   updatePlaylist(updatePlaylistInput: UpdatePlaylistInput!, id: Float!): Playlist!
   deletePlaylist(id: Float!): Playlist!
+}
+
+input NewUserInput {
+  first_name: String!
+  last_name: String!
+  email: String!
+  password: String!
 }
 
 input NewPlaylistInput {
